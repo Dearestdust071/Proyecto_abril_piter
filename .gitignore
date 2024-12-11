@@ -1,0 +1,24 @@
+# Node.js
+**/node_modules/
+**/dist/
+**/npm-debug.log*
+
+# Angular
+**/.angular/cache/
+**/dist/
+
+# Laravel
+**/vendor/
+**/storage/*.key
+**/.env
+
+# C#
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+
+# General
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgresDist: 
+    image: postgres:15.1
+    container_name: postgresDist
+    environment:
+      POSTGRES_DB: Songs
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  pgAdmin:
+    image: dpage/pgadmin4:6.17
+    container_name: pgAdmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: sistemas@itses.edu.mx
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "9090:80"
+    depends_on:
+      - postgresDist
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

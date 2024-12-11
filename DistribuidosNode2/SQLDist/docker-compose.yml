@@ -1,0 +1,25 @@
+# Ya no se ocupa pero antes se ponia la version
+# el depends es en cuestion del servicio no del nombre del contenedor
+
+version: '3.8'
+
+services:
+  db: 
+    container_name: SQL_Distribuidos
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=kindred
+      - MYSQL_DATABASE=Sist_distribuidos  # Crea la base de datos PruebaIA
+    ports:
+      - 3306:3306  # Exponer el puerto de MySQL en el host
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    depends_on:
+      - db
+    image: phpmyadmin:apache
+    environment:
+      - PMA_HOST=db  # Conectar phpMyAdmin al servicio db
+      - PMA_PORT=3306
+    ports:
+      - 8080:80  # Exponer phpMyAdmin en el puerto 8080
