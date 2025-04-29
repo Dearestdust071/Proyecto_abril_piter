@@ -1,31 +1,38 @@
 version: '3'
 
 services:
-  postgresDist: 
-    image: postgres:15.1
-    container_name: postgresDist
+  mysql:
+    image: mysql:8.0
+    container_name: song_vault_mysql
     environment:
-      POSTGRES_DB: Songs
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
+      MYSQL_DATABASE: song_vault
+      MYSQL_USER: song_user
+      MYSQL_PASSWORD: song_pass
+      MYSQL_ROOT_PASSWORD: root
     ports:
-      - "5432:5432"
+      - "3306:3306"
     networks:
       - app-network
+    volumes:
+      - mysql_data:/var/lib/mysql
 
-  pgAdmin:
-    image: dpage/pgadmin4:6.17
-    container_name: pgAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: song_vault_phpmyadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: sistemas@itses.edu.mx
-      PGADMIN_DEFAULT_PASSWORD: root
+      PMA_HOST: mysql
+      PMA_USER: song_user
+      PMA_PASSWORD: song_pass
     ports:
-      - "9090:80"
+      - "8080:80"
     depends_on:
-      - postgresDist
+      - mysql
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mysql_data:
