@@ -77,7 +77,7 @@ class SongController extends Controller
             'name' => 'sometimes|required|string|max:255',
             'artist' => 'sometimes|required|string|max:255',
             'genre' => 'sometimes|required|string|max:255',
-            'release_year' => 'sometimes|required|integer|min:1900|max:' . date('Y'),
+            'release_year' => 'required|integer|min:1|max:' . date('Y'),
             'duration' => ['required', 'regex:/^([0-5][0-9]):([0-5][0-9])$/'],
             'creator_name' => 'required|string|max:255',
         ]);
